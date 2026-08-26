@@ -1,0 +1,2377 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "e-Invoicing Custom API v1.1",
+    "description": "## Disclaimer\n\n**** Warning: at this point, ITAS API does not support asynchronous or multithreading calls for POST, PUT, PATCH and DELETE requests. Async or multithreading requests could result in various Error messages, or even a corruption of data in extreme cases and are therefore not supported. ****\n<br />\n<br />\n<strong>Release notes</strong> (6<sup>th</sup> February 2026.)\n\n## New Endpoints\n\n<ul>\n<li>None</li>\n</ul>\n\n## Updated Endpoints\n\n<ul>\n<li>Invoices <b>Incoming Invoice Record List</b>: Additional Properties Notes and DocmanDocumentId,<a href=\"/#reference/invoices/incoming-invoice-record-list/list-incoming-invoice-records\"> Link</a></li>\n<li>Invoices <b>Incoming Invoice Record Create</b>: Additional Properties Notes and DocmanDocumentId,<a href=\"/#reference/invoices/incoming-invoice-record-create/create-incoming-invoice-record\"> Link</a></li>\n<li>Invoices <b>Incoming Invoice Record Update</b>: Additional Properties Notes and DocmanDocumentId,<a href=\"/#reference/invoices/incoming-invoice-record-update-delete/update-incoming-invoice-record\"> Link</a></li>\n</ul>\n\n<div>** ends ** </div>",
+    "contact": {},
+    "version": "1.1"
+  },
+  "servers": [
+    {
+      "url": "http://itas.apiary.io/",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/Invoices/{TradingEntityId}/IncomingInvoice/{Property}/{PropertyValue}": {
+      "get": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "List Incoming Invoice Records",
+        "description": "`GET` Incoming Invoices.\n\n|Property|Description|Type|Max Length|Notes|Constraint|\n|--------|-----------|----|----------|-----|----------|\n|InvoiceRecordId|Invoice Record Id|`number`||||\n|AccountCode|Account Code|`string`|10|||\n|ClientReference|Client Reference|`string`|255|||\n|CurrencyCode|Currency Code|`string`|3|||\n|DocumentDate|Document Date|`datetime`||||\n|ValueDate|Value Date|`datetime`||||\n|Name|Name|`string`|40|||\n|VatRegistrationNo|Vat Registration Number|`string`|20|||\n|EInvoiceId|e Invoice Id|`string`|50|||\n|TotalInvoiceAmount|Total Invoice Amount|`number`||||\n|TotalInvoiceLinesExVatAmount|Total Invoice Lines Excluding Vat Amount|`number`||||\n|TotalVatAmount|Total Vat Amount|`number`||||\n|InvoicePayableAmount|Invoice Payable Amount|`number`||||\n|IBAN|IBAN|`string`|255|||\n|BIC|BIC|`string`|255|||\n|OrderNumber|Order Number|`string`|255|||\n|IsProcessed|Is Processed|`boolean`||||\n|TaxScheme|Tax Scheme|`string`|5|||\n|SchemeId|Scheme Id|`string`|5|||\n|DocumentType|Document Type|`string`|10|||\n|Notes|Notes|`string`|4000|||\n|DocmanDocumentId|Docman Document Id|`number`||||\n|InvoiceRecordLegs|see <b><a href=\"/#reference/data-object-definitions/invoice-leg/invoice-leg\">Invoice Legs</a></b> object|[array] of `object`||||",
+        "operationId": "ListIncomingInvoiceRecords",
+        "parameters": [
+          {
+            "name": "TradingEntityId",
+            "in": "path",
+            "description": "Identify specific trading entity.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "JT"
+            }
+          },
+          {
+            "name": "Property",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Property"
+            }
+          },
+          {
+            "name": "PropertyValue",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "ABCDEF.P"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ListIncomingInvoiceRecordsresponse"
+                    },
+                    {
+                      "example": {
+                        "Data": [
+                          {
+                            "InvoiceRecordId": 1,
+                            "AccountCode": "ABCDEFG.P",
+                            "ClientReference": "'5879101647'",
+                            "CurrencyCode": "EUR",
+                            "DocumentDate": "2025-07-14T00:00:00Z",
+                            "ValueDate": "2025-08-14T00:00:00Z",
+                            "Name": "Coolblue N.V.",
+                            "VatRegistrationNo": "NL823619357Z08",
+                            "EInvoiceId": "0478493179",
+                            "TotalInvoiceAmount": 729.17,
+                            "TotalInvoiceLinesExVatAmount": 745.91,
+                            "TotalVatAmount": 16.74,
+                            "InvoicePayableAmount": 719.27,
+                            "IBAN": "UKBMGB22",
+                            "BIC": "HBUKGB4B",
+                            "OrderNumber": "Order 1",
+                            "IsProcessed": false,
+                            "TaxScheme": "VAT",
+                            "SchemeId": "9944",
+                            "DocumentType": "123",
+                            "Notes": "Received ready for processing",
+                            "DocmanDocumentId": 10101,
+                            "InvoiceRecordLegs": [
+                              {
+                                "InvoiceRecordId": 1,
+                                "InvoiceRecordLegId": 1,
+                                "Quantity": 440.0,
+                                "WeightCode": "MT",
+                                "Value": 22000.0,
+                                "Price": 50.0,
+                                "VatRatePercentage": 21,
+                                "InvoiceRecordLegDescription": "SGR 1234",
+                                "VatRateCode": "E",
+                                "RateTypeCode": "A",
+                                "PriceTypeCode": "PKG",
+                                "PaymentModeCode": "I",
+                                "PaymentId": "Payment 1",
+                                "BuyerOrderIdentifier": "XX01",
+                                "StartPeriod": "2025-07-14T00:00:00Z",
+                                "EndPeriod": "2025-07-28T00:00:00Z",
+                                "FreeFormatNote": "Notes section"
+                              },
+                              {
+                                "InvoiceRecordId": 1,
+                                "InvoiceRecordLegId": 2,
+                                "Quantity": 400.0,
+                                "WeightCode": "MT",
+                                "Value": 24000.0,
+                                "Price": 60.0,
+                                "VatRatePercentage": 21,
+                                "InvoiceRecordLegDescription": "MLS 8523",
+                                "VatRateCode": "E",
+                                "RateTypeCode": "A",
+                                "PriceTypeCode": "PKG",
+                                "PaymentModeCode": "I",
+                                "PaymentId": "Payment 1",
+                                "BuyerOrderIdentifier": "XX01",
+                                "StartPeriod": "2025-07-14T00:00:00Z",
+                                "EndPeriod": "2025-07-28T00:00:00Z",
+                                "FreeFormatNote": "Notes section"
+                              }
+                            ]
+                          }
+                        ],
+                        "Pagination": {
+                          "Total": 547,
+                          "Top": 200,
+                          "Skip": 400,
+                          "Returned": 146
+                        },
+                        "Response": {
+                          "Value": "Success"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Data": [
+                    {
+                      "InvoiceRecordId": 1,
+                      "AccountCode": "ABCDEFG.P",
+                      "ClientReference": "'5879101647'",
+                      "CurrencyCode": "EUR",
+                      "DocumentDate": "2025-07-14T00:00:00Z",
+                      "ValueDate": "2025-08-14T00:00:00Z",
+                      "Name": "Coolblue N.V.",
+                      "VatRegistrationNo": "NL823619357Z08",
+                      "EInvoiceId": "0478493179",
+                      "TotalInvoiceAmount": 729.17,
+                      "TotalInvoiceLinesExVatAmount": 745.91,
+                      "TotalVatAmount": 16.74,
+                      "InvoicePayableAmount": 719.27,
+                      "IBAN": "UKBMGB22",
+                      "BIC": "HBUKGB4B",
+                      "OrderNumber": "Order 1",
+                      "IsProcessed": false,
+                      "TaxScheme": "VAT",
+                      "SchemeId": "9944",
+                      "DocumentType": "123",
+                      "Notes": "Received ready for processing",
+                      "DocmanDocumentId": 10101,
+                      "InvoiceRecordLegs": [
+                        {
+                          "InvoiceRecordId": 1,
+                          "InvoiceRecordLegId": 1,
+                          "Quantity": 440.0,
+                          "WeightCode": "MT",
+                          "Value": 22000.0,
+                          "Price": 50.0,
+                          "VatRatePercentage": 21,
+                          "InvoiceRecordLegDescription": "SGR 1234",
+                          "VatRateCode": "E",
+                          "RateTypeCode": "A",
+                          "PriceTypeCode": "PKG",
+                          "PaymentModeCode": "I",
+                          "PaymentId": "Payment 1",
+                          "BuyerOrderIdentifier": "XX01",
+                          "StartPeriod": "2025-07-14T00:00:00Z",
+                          "EndPeriod": "2025-07-28T00:00:00Z",
+                          "FreeFormatNote": "Notes section"
+                        },
+                        {
+                          "InvoiceRecordId": 1,
+                          "InvoiceRecordLegId": 2,
+                          "Quantity": 400.0,
+                          "WeightCode": "MT",
+                          "Value": 24000.0,
+                          "Price": 60.0,
+                          "VatRatePercentage": 21,
+                          "InvoiceRecordLegDescription": "MLS 8523",
+                          "VatRateCode": "E",
+                          "RateTypeCode": "A",
+                          "PriceTypeCode": "PKG",
+                          "PaymentModeCode": "I",
+                          "PaymentId": "Payment 1",
+                          "BuyerOrderIdentifier": "XX01",
+                          "StartPeriod": "2025-07-14T00:00:00Z",
+                          "EndPeriod": "2025-07-28T00:00:00Z",
+                          "FreeFormatNote": "Notes section"
+                        }
+                      ]
+                    }
+                  ],
+                  "Pagination": {
+                    "Total": 547,
+                    "Top": 200,
+                    "Skip": 400,
+                    "Returned": 146
+                  },
+                  "Response": {
+                    "Value": "Success"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/400BadPropertyResponse"
+                    },
+                    {
+                      "example": {
+                        "Response": {
+                          "Value": "400 Bad Request"
+                        },
+                        "Messages": [
+                          {
+                            "Severity": "Error",
+                            "Message": "API5074 - API : The value sent in the querystring variable {Property} is not allowed."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Response": {
+                    "Value": "400 Bad Request"
+                  },
+                  "Messages": [
+                    {
+                      "Severity": "Error",
+                      "Message": "API5074 - API : The value sent in the querystring variable {Property} is not allowed."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/404Response"
+                    },
+                    {
+                      "example": {
+                        "Response": {
+                          "Value": "404 Not Found"
+                        },
+                        "Messages": [
+                          {
+                            "Severity": "Warning",
+                            "Message": "API5068 - Data : No records found."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Response": {
+                    "Value": "404 Not Found"
+                  },
+                  "Messages": [
+                    {
+                      "Severity": "Warning",
+                      "Message": "API5068 - Data : No records found."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/405Response"
+                    },
+                    {
+                      "example": {
+                        "Response": {
+                          "Value": "405 Method Not Allowed"
+                        },
+                        "Messages": [
+                          {
+                            "Severity": "Error",
+                            "Message": "API5077 - API : That method is not supported, please check the ITAS API documentation."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Response": {
+                    "Value": "405 Method Not Allowed"
+                  },
+                  "Messages": [
+                    {
+                      "Severity": "Error",
+                      "Message": "API5077 - API : That method is not supported, please check the ITAS API documentation."
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/Invoices/{TradingEntityId}/IncomingInvoice": {
+      "post": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "Create Incoming Invoice Record",
+        "description": "`POST` Create Incoming Invoice Record in the Staging Table. * <a href=\"/#introduction/disclaimer\"> (Disclaimer)</a>\n\n|Property|Description|Type|Max Length|Notes|Constraint|\n|--------|-----------|----|----------|-----|----------|\n|AccountCode|Account Code|`string`|10||Required|\n|ClientReference|Client Reference|`string`|255||Required|\n|CurrencyCode|Currency Code|`string`|3||Required|\n|DocumentDate|Document Date|`datetime`|||Required|\n|ValueDate|Value Date|`datetime`|||Required|\n|Name|Name|`string`|40||Required|\n|VatRegistrationNo|Vat Registration Number|`string`|20||Required|\n|EInvoiceId|e Invoice Id|`string`|50||Required|\n|TotalInvoiceAmount|Total Invoice Amount|`number`|||Required|\n|TotalInvoiceLinesExVatAmount|Total Invoice Lines Excluding Vat Amount|`number`|||Required|\n|TotalVatAmount|Total Vat Amount|`number`|||Required|\n|InvoicePayableAmount|Invoice Payable Amount|`number`|||Required|\n|IBAN|IBAN|`string`|255||Required|\n|BIC|BIC|`string`|255||Required|\n|OrderNumber|Order Number|`string`|255|||\n|TaxScheme|Tax Scheme|`string`|5|||\n|SchemeId|Scheme Id|`string`|5|||\n|DocumentType|Document Type|`string`|10|||\n|Notes|Notes|`string`|4000|||\n|DocmanDocumentId|Docman Document Id|`number`||||\n|InvoiceRecordLegs|see <b><a href=\"/#reference/data-object-definitions/invoice-leg/invoice-leg-for-create\">Invoice Legs</a></b> object|[array] of `object`|||Required|\n\n<hr />\n\n<b>Response Data</b>\n|Property|Description|Type|Max Length|Notes|Constraint|\n|--------|-----------|----|----------|-----|----------|\n|InvoiceRecordId|Invoice Record Id|`number`||||",
+        "operationId": "CreateIncomingInvoiceRecord",
+        "parameters": [
+          {
+            "name": "TradingEntityId",
+            "in": "path",
+            "description": "Identify specific trading entity.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "JT"
+            }
+          },
+          {
+            "name": "AccessToken",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": {
+              "enum": [
+                "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1bmlxdWVfbmFtZSI6ImRlZXBhayIsInN1YiI6ImRlZXBhayIsInJvbGUiOlsiNzk5YjhhNDEtYWI0ZS00MTBhLWI5MTktYzU3ZWFlMmFlMDI5IiwiZGVlcGFrIiwiQVNQLk5FVCBJZGVudGl0eSIsIjViNDE4ODE2LTI3ZjQtNGRlOC1iNmMyLTJlZTcxNjI3ZmJmYyIsIkFkbWluIiwiU3VwZXJBZG1pbiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMjciLCJhdWQiOiI4MjkzNjk0MjJmNzA0NTIzODUxZDk4NTU2YjZkNTQyYiIsImV4cCI6MTQ1OTQzMjk0MSwibmJmIjoxNDU5NDMxMTQxfQ.JgPGxt0Ok5baKx0YMXlO6D9kUYrCWM-Kma9b9iMW8tg"
+              ],
+              "type": "string",
+              "example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1bmlxdWVfbmFtZSI6ImRlZXBhayIsInN1YiI6ImRlZXBhayIsInJvbGUiOlsiNzk5YjhhNDEtYWI0ZS00MTBhLWI5MTktYzU3ZWFlMmFlMDI5IiwiZGVlcGFrIiwiQVNQLk5FVCBJZGVudGl0eSIsIjViNDE4ODE2LTI3ZjQtNGRlOC1iNmMyLTJlZTcxNjI3ZmJmYyIsIkFkbWluIiwiU3VwZXJBZG1pbiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMjciLCJhdWQiOiI4MjkzNjk0MjJmNzA0NTIzODUxZDk4NTU2YjZkNTQyYiIsImV4cCI6MTQ1OTQzMjk0MSwibmJmIjoxNDU5NDMxMTQxfQ.JgPGxt0Ok5baKx0YMXlO6D9kUYrCWM-Kma9b9iMW8tg"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceCreateBody"
+                  },
+                  {
+                    "example": {
+                      "AccountCode": "ABCDEFG.P",
+                      "ClientReference": "'5879101647'",
+                      "CurrencyCode": "EUR",
+                      "DocumentDate": "2025-07-14T00:00:00Z",
+                      "ValueDate": "2025-08-14T00:00:00Z",
+                      "Name": "Coolblue N.V.",
+                      "VatRegistrationNo": "NL823619357Z08",
+                      "EInvoiceId": "0478493179",
+                      "TotalInvoiceAmount": 729.17,
+                      "TotalInvoiceLinesExVatAmount": 745.91,
+                      "TotalVatAmount": 16.74,
+                      "InvoicePayableAmount": 719.27,
+                      "IBAN": "UKBMGB22",
+                      "BIC": "HBUKGB4B",
+                      "OrderNumber": "Order 1",
+                      "TaxScheme": "VAT",
+                      "SchemeId": "9944",
+                      "DocumentType": "123",
+                      "Notes": "Received ready for processing",
+                      "DocmanDocumentId": 10101,
+                      "InvoiceRecordLegs": [
+                        {
+                          "Quantity": 440.0,
+                          "WeightCode": "MT",
+                          "Value": 22000.0,
+                          "Price": 50.0,
+                          "VatRatePercentage": 21,
+                          "InvoiceRecordLegDescription": "SGR 1234",
+                          "VatRateCode": "E",
+                          "RateTypeCode": "A",
+                          "PriceTypeCode": "PKG",
+                          "PaymentModeCode": "I",
+                          "PaymentId": "Payment 1",
+                          "BuyerOrderIdentifier": "XX01",
+                          "StartPeriod": "2025-07-14T00:00:00Z",
+                          "EndPeriod": "2025-07-28T00:00:00Z",
+                          "FreeFormatNote": "Notes section"
+                        },
+                        {
+                          "Quantity": 200.0,
+                          "WeightCode": "MT",
+                          "Value": 12000.0,
+                          "Price": 60.0,
+                          "VatRatePercentage": 21,
+                          "InvoiceRecordLegDescription": "MLS 8523",
+                          "VatRateCode": "E",
+                          "RateTypeCode": "A",
+                          "PriceTypeCode": "PKG",
+                          "PaymentModeCode": "I",
+                          "PaymentId": "Payment 1",
+                          "BuyerOrderIdentifier": "XX01",
+                          "StartPeriod": "2025-07-14T00:00:00Z",
+                          "EndPeriod": "2025-07-28T00:00:00Z",
+                          "FreeFormatNote": "Notes section"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "AccountCode": "ABCDEFG.P",
+                "ClientReference": "'5879101647'",
+                "CurrencyCode": "EUR",
+                "DocumentDate": "2025-07-14T00:00:00Z",
+                "ValueDate": "2025-08-14T00:00:00Z",
+                "Name": "Coolblue N.V.",
+                "VatRegistrationNo": "NL823619357Z08",
+                "EInvoiceId": "0478493179",
+                "TotalInvoiceAmount": 729.17,
+                "TotalInvoiceLinesExVatAmount": 745.91,
+                "TotalVatAmount": 16.74,
+                "InvoicePayableAmount": 719.27,
+                "IBAN": "UKBMGB22",
+                "BIC": "HBUKGB4B",
+                "OrderNumber": "Order 1",
+                "TaxScheme": "VAT",
+                "SchemeId": "9944",
+                "DocumentType": "123",
+                "Notes": "Received ready for processing",
+                "DocmanDocumentId": 10101,
+                "InvoiceRecordLegs": [
+                  {
+                    "Quantity": 440.0,
+                    "WeightCode": "MT",
+                    "Value": 22000.0,
+                    "Price": 50.0,
+                    "VatRatePercentage": 21,
+                    "InvoiceRecordLegDescription": "SGR 1234",
+                    "VatRateCode": "E",
+                    "RateTypeCode": "A",
+                    "PriceTypeCode": "PKG",
+                    "PaymentModeCode": "I",
+                    "PaymentId": "Payment 1",
+                    "BuyerOrderIdentifier": "XX01",
+                    "StartPeriod": "2025-07-14T00:00:00Z",
+                    "EndPeriod": "2025-07-28T00:00:00Z",
+                    "FreeFormatNote": "Notes section"
+                  },
+                  {
+                    "Quantity": 200.0,
+                    "WeightCode": "MT",
+                    "Value": 12000.0,
+                    "Price": 60.0,
+                    "VatRatePercentage": 21,
+                    "InvoiceRecordLegDescription": "MLS 8523",
+                    "VatRateCode": "E",
+                    "RateTypeCode": "A",
+                    "PriceTypeCode": "PKG",
+                    "PaymentModeCode": "I",
+                    "PaymentId": "Payment 1",
+                    "BuyerOrderIdentifier": "XX01",
+                    "StartPeriod": "2025-07-14T00:00:00Z",
+                    "EndPeriod": "2025-07-28T00:00:00Z",
+                    "FreeFormatNote": "Notes section"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/CreateIncomingInvoiceRecordresponse"
+                    },
+                    {
+                      "example": {
+                        "Data": {
+                          "InvoiceRecordId": 1
+                        },
+                        "Response": {
+                          "Value": "Created"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Data": {
+                    "InvoiceRecordId": 1
+                  },
+                  "Response": {
+                    "Value": "Created"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/400Response"
+                    },
+                    {
+                      "example": {
+                        "Response": {
+                          "Value": "400 Bad Request"
+                        },
+                        "Messages": [
+                          {
+                            "Severity": "Error",
+                            "Message": "API5058 - Data : The mandatory field {fieldName} was missing in the request body."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Response": {
+                    "Value": "400 Bad Request"
+                  },
+                  "Messages": [
+                    {
+                      "Severity": "Error",
+                      "Message": "API5058 - Data : The mandatory field {fieldName} was missing in the request body."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/404Response"
+                    },
+                    {
+                      "example": {
+                        "Response": {
+                          "Value": "404 Not Found"
+                        },
+                        "Messages": [
+                          {
+                            "Severity": "Warning",
+                            "Message": "API5068 - Data : No records found."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Response": {
+                    "Value": "404 Not Found"
+                  },
+                  "Messages": [
+                    {
+                      "Severity": "Warning",
+                      "Message": "API5068 - Data : No records found."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/405Response"
+                    },
+                    {
+                      "example": {
+                        "Response": {
+                          "Value": "405 Method Not Allowed"
+                        },
+                        "Messages": [
+                          {
+                            "Severity": "Error",
+                            "Message": "API5077 - API : That method is not supported, please check the ITAS API documentation."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Response": {
+                    "Value": "405 Method Not Allowed"
+                  },
+                  "Messages": [
+                    {
+                      "Severity": "Error",
+                      "Message": "API5077 - API : That method is not supported, please check the ITAS API documentation."
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/Invoices/{TradingEntityId}/IncomingInvoice/{InvoiceRecordId}": {
+      "put": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "Update Incoming Invoice Record",
+        "description": "`PUT` Update Incoming Invoice Record in the Staging Table. * <a href=\"/#introduction/disclaimer\"> (Disclaimer)</a>\n\n|Property|Description|Type|Max Length|Notes|Constraint|\n|--------|-----------|----|----------|-----|----------|\n|InvoiceRecordId|Invoice Record Id|`number`|||Required|\n|AccountCode|Account Code|`string`|10||Required|\n|ClientReference|Client Reference|`string`|255||Required|\n|CurrencyCode|Currency Code|`string`|3||Required|\n|DocumentDate|Document Date|`datetime`|||Required|\n|ValueDate|Value Date|`datetime`|||Required|\n|Name|Name|`string`|40||Required|\n|VatRegistrationNo|Vat Registration Number|`string`|20||Required|\n|EInvoiceId|e Invoice Id|`string`|50||Required|\n|TotalInvoiceAmount|Total Invoice Amount|`number`|||Required|\n|TotalInvoiceLinesExVatAmount|Total Invoice Lines Excluding Vat Amount|`number`|||Required|\n|TotalVatAmount|Total Vat Amount|`number`|||Required|\n|InvoicePayableAmount|Invoice Payable Amount|`number`|||Required|\n|IBAN|IBAN|`string`|255||Required|\n|BIC|BIC|`string`|255||Required|\n|OrderNumber|Order Number|`string`|255|||\n|IsProcessed|Is Processed|`boolean`||||\n|TaxScheme|Tax Scheme|`string`|5|||\n|SchemeId|Scheme Id|`string`|5|||\n|DocumentType|Document Type|`string`|10|||\n|Notes|Notes|`string`|4000|||\n|DocmanDocumentId|Docman Document Id|`number`||||\n|InvoiceRecordLegs|see <b><a href=\"/#reference/data-object-definitions/invoice-leg/invoice-leg\">Invoice Legs</a></b> object|[array] of `object`|||Required|\n\n<hr />\n\n<b>Response Data</b>\n|Property|Description|Type|Max Length|Notes|Constraint|\n|--------|-----------|----|----------|-----|----------|\n|InvoiceRecordId|Invoice Record Id|`number`||||",
+        "operationId": "UpdateIncomingInvoiceRecord",
+        "parameters": [
+          {
+            "name": "TradingEntityId",
+            "in": "path",
+            "description": "Identify specific trading entity.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "JT"
+            }
+          },
+          {
+            "name": "InvoiceRecordId",
+            "in": "path",
+            "description": "Identity specific invoice record",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "example": 1
+            }
+          },
+          {
+            "name": "AccessToken",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": {
+              "enum": [
+                "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1bmlxdWVfbmFtZSI6ImRlZXBhayIsInN1YiI6ImRlZXBhayIsInJvbGUiOlsiNzk5YjhhNDEtYWI0ZS00MTBhLWI5MTktYzU3ZWFlMmFlMDI5IiwiZGVlcGFrIiwiQVNQLk5FVCBJZGVudGl0eSIsIjViNDE4ODE2LTI3ZjQtNGRlOC1iNmMyLTJlZTcxNjI3ZmJmYyIsIkFkbWluIiwiU3VwZXJBZG1pbiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMjciLCJhdWQiOiI4MjkzNjk0MjJmNzA0NTIzODUxZDk4NTU2YjZkNTQyYiIsImV4cCI6MTQ1OTQzMjk0MSwibmJmIjoxNDU5NDMxMTQxfQ.JgPGxt0Ok5baKx0YMXlO6D9kUYrCWM-Kma9b9iMW8tg"
+              ],
+              "type": "string",
+              "example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1bmlxdWVfbmFtZSI6ImRlZXBhayIsInN1YiI6ImRlZXBhayIsInJvbGUiOlsiNzk5YjhhNDEtYWI0ZS00MTBhLWI5MTktYzU3ZWFlMmFlMDI5IiwiZGVlcGFrIiwiQVNQLk5FVCBJZGVudGl0eSIsIjViNDE4ODE2LTI3ZjQtNGRlOC1iNmMyLTJlZTcxNjI3ZmJmYyIsIkFkbWluIiwiU3VwZXJBZG1pbiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMjciLCJhdWQiOiI4MjkzNjk0MjJmNzA0NTIzODUxZDk4NTU2YjZkNTQyYiIsImV4cCI6MTQ1OTQzMjk0MSwibmJmIjoxNDU5NDMxMTQxfQ.JgPGxt0Ok5baKx0YMXlO6D9kUYrCWM-Kma9b9iMW8tg"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InvoiceUpdateBody"
+                  },
+                  {
+                    "example": {
+                      "InvoiceRecordId": 1,
+                      "AccountCode": "ABCDEFG.P",
+                      "ClientReference": "'5879101647'",
+                      "CurrencyCode": "EUR",
+                      "DocumentDate": "2025-07-14T00:00:00Z",
+                      "ValueDate": "2025-08-14T00:00:00Z",
+                      "Name": "Coolblue N.V.",
+                      "VatRegistrationNo": "NL823619357Z08",
+                      "EInvoiceId": "0478493179",
+                      "TotalInvoiceAmount": 729.17,
+                      "TotalInvoiceLinesExVatAmount": 745.91,
+                      "TotalVatAmount": 16.74,
+                      "InvoicePayableAmount": 719.27,
+                      "IBAN": "UKBMGB22",
+                      "BIC": "HBUKGB4B",
+                      "OrderNumber": "'Order 1",
+                      "TaxScheme": "VAT",
+                      "SchemeId": "9944",
+                      "DocumentType": "123",
+                      "Notes": "Process with the following note",
+                      "DocmanDocumentId": 10101,
+                      "InvoiceRecordLegs": [
+                        {
+                          "InvoiceRecordId": 1,
+                          "InvoiceRecordLegId": 1,
+                          "Quantity": 440.0,
+                          "WeightCode": "MT",
+                          "Value": 22000.0,
+                          "Price": 50.0,
+                          "VatRatePercentage": 21,
+                          "InvoiceRecordLegDescription": "SGR 1234",
+                          "VatRateCode": "E",
+                          "RateTypeCode": "A",
+                          "PriceTypeCode": "PKG",
+                          "PaymentModeCode": "I",
+                          "PaymentId": "Payment 1",
+                          "BuyerOrderIdentifier": "XX01",
+                          "StartPeriod": "2025-07-14T00:00:00Z",
+                          "EndPeriod": "2025-07-28T00:00:00Z",
+                          "FreeFormatNote": "Notes section"
+                        },
+                        {
+                          "InvoiceRecordId": 1,
+                          "InvoiceRecordLegId": 2,
+                          "Quantity": 400.0,
+                          "WeightCode": "MT",
+                          "Value": 24000.0,
+                          "Price": 60.0,
+                          "VatRatePercentage": 21,
+                          "InvoiceRecordLegDescription": "MLS 8523",
+                          "VatRateCode": "E",
+                          "RateTypeCode": "A",
+                          "PriceTypeCode": "PKG",
+                          "PaymentModeCode": "I",
+                          "PaymentId": "Payment 1",
+                          "BuyerOrderIdentifier": "XX01",
+                          "StartPeriod": "2025-07-14T00:00:00Z",
+                          "EndPeriod": "2025-07-28T00:00:00Z",
+                          "FreeFormatNote": "Notes section"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "InvoiceRecordId": 1,
+                "AccountCode": "ABCDEFG.P",
+                "ClientReference": "'5879101647'",
+                "CurrencyCode": "EUR",
+                "DocumentDate": "2025-07-14T00:00:00Z",
+                "ValueDate": "2025-08-14T00:00:00Z",
+                "Name": "Coolblue N.V.",
+                "VatRegistrationNo": "NL823619357Z08",
+                "EInvoiceId": "0478493179",
+                "TotalInvoiceAmount": 729.17,
+                "TotalInvoiceLinesExVatAmount": 745.91,
+                "TotalVatAmount": 16.74,
+                "InvoicePayableAmount": 719.27,
+                "IBAN": "UKBMGB22",
+                "BIC": "HBUKGB4B",
+                "OrderNumber": "'Order 1",
+                "TaxScheme": "VAT",
+                "SchemeId": "9944",
+                "DocumentType": "123",
+                "Notes": "Process with the following note",
+                "DocmanDocumentId": 10101,
+                "InvoiceRecordLegs": [
+                  {
+                    "InvoiceRecordId": 1,
+                    "InvoiceRecordLegId": 1,
+                    "Quantity": 440.0,
+                    "WeightCode": "MT",
+                    "Value": 22000.0,
+                    "Price": 50.0,
+                    "VatRatePercentage": 21,
+                    "InvoiceRecordLegDescription": "SGR 1234",
+                    "VatRateCode": "E",
+                    "RateTypeCode": "A",
+                    "PriceTypeCode": "PKG",
+                    "PaymentModeCode": "I",
+                    "PaymentId": "Payment 1",
+                    "BuyerOrderIdentifier": "XX01",
+                    "StartPeriod": "2025-07-14T00:00:00Z",
+                    "EndPeriod": "2025-07-28T00:00:00Z",
+                    "FreeFormatNote": "Notes section"
+                  },
+                  {
+                    "InvoiceRecordId": 1,
+                    "InvoiceRecordLegId": 2,
+                    "Quantity": 400.0,
+                    "WeightCode": "MT",
+                    "Value": 24000.0,
+                    "Price": 60.0,
+                    "VatRatePercentage": 21,
+                    "InvoiceRecordLegDescription": "MLS 8523",
+                    "VatRateCode": "E",
+                    "RateTypeCode": "A",
+                    "PriceTypeCode": "PKG",
+                    "PaymentModeCode": "I",
+                    "PaymentId": "Payment 1",
+                    "BuyerOrderIdentifier": "XX01",
+                    "StartPeriod": "2025-07-14T00:00:00Z",
+                    "EndPeriod": "2025-07-28T00:00:00Z",
+                    "FreeFormatNote": "Notes section"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/UpdateIncomingInvoiceRecordresponse"
+                    },
+                    {
+                      "example": {
+                        "Data": {
+                          "InvoiceRecordId": 1
+                        },
+                        "Response": {
+                          "Value": "Updated"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Data": {
+                    "InvoiceRecordId": 1
+                  },
+                  "Response": {
+                    "Value": "Updated"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/400Response"
+                    },
+                    {
+                      "example": {
+                        "Response": {
+                          "Value": "400 Bad Request"
+                        },
+                        "Messages": [
+                          {
+                            "Severity": "Error",
+                            "Message": "API5058 - Data : The mandatory field {fieldName} was missing in the request body."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Response": {
+                    "Value": "400 Bad Request"
+                  },
+                  "Messages": [
+                    {
+                      "Severity": "Error",
+                      "Message": "API5058 - Data : The mandatory field {fieldName} was missing in the request body."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/404Response"
+                    },
+                    {
+                      "example": {
+                        "Response": {
+                          "Value": "404 Not Found"
+                        },
+                        "Messages": [
+                          {
+                            "Severity": "Warning",
+                            "Message": "API5068 - Data : No records found."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Response": {
+                    "Value": "404 Not Found"
+                  },
+                  "Messages": [
+                    {
+                      "Severity": "Warning",
+                      "Message": "API5068 - Data : No records found."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/405Response"
+                    },
+                    {
+                      "example": {
+                        "Response": {
+                          "Value": "405 Method Not Allowed"
+                        },
+                        "Messages": [
+                          {
+                            "Severity": "Error",
+                            "Message": "API5077 - API : That method is not supported, please check the ITAS API documentation."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Response": {
+                    "Value": "405 Method Not Allowed"
+                  },
+                  "Messages": [
+                    {
+                      "Severity": "Error",
+                      "Message": "API5077 - API : That method is not supported, please check the ITAS API documentation."
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "Delete Incoming Invoice",
+        "description": "`DELETE` Incoming Invoice record. * <a href=\"/#introduction/disclaimer\"> (Disclaimer)</a>\n\n|Property|Description|Type|Max Length|Notes|Constraint|\n|--------|-----------|----|----------|-----|----------|\n|InvoiceRecordId|Invoice Record Id|`number`|||Required|\n\n<strong>Body Parameters</strong>\n<br />\nNone.",
+        "operationId": "DeleteIncomingInvoice",
+        "parameters": [
+          {
+            "name": "TradingEntityId",
+            "in": "path",
+            "description": "Identify specific trading entity.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "JT"
+            }
+          },
+          {
+            "name": "InvoiceRecordId",
+            "in": "path",
+            "description": "Identity specific invoice record",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "example": 1
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string",
+              "example": "application/json"
+            }
+          },
+          {
+            "name": "AccessToken",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": {
+              "enum": [
+                "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1bmlxdWVfbmFtZSI6ImRlZXBhayIsInN1YiI6ImRlZXBhayIsInJvbGUiOlsiNzk5YjhhNDEtYWI0ZS00MTBhLWI5MTktYzU3ZWFlMmFlMDI5IiwiZGVlcGFrIiwiQVNQLk5FVCBJZGVudGl0eSIsIjViNDE4ODE2LTI3ZjQtNGRlOC1iNmMyLTJlZTcxNjI3ZmJmYyIsIkFkbWluIiwiU3VwZXJBZG1pbiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMjciLCJhdWQiOiI4MjkzNjk0MjJmNzA0NTIzODUxZDk4NTU2YjZkNTQyYiIsImV4cCI6MTQ1OTQzMjk0MSwibmJmIjoxNDU5NDMxMTQxfQ.JgPGxt0Ok5baKx0YMXlO6D9kUYrCWM-Kma9b9iMW8tg"
+              ],
+              "type": "string",
+              "example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1bmlxdWVfbmFtZSI6ImRlZXBhayIsInN1YiI6ImRlZXBhayIsInJvbGUiOlsiNzk5YjhhNDEtYWI0ZS00MTBhLWI5MTktYzU3ZWFlMmFlMDI5IiwiZGVlcGFrIiwiQVNQLk5FVCBJZGVudGl0eSIsIjViNDE4ODE2LTI3ZjQtNGRlOC1iNmMyLTJlZTcxNjI3ZmJmYyIsIkFkbWluIiwiU3VwZXJBZG1pbiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMjciLCJhdWQiOiI4MjkzNjk0MjJmNzA0NTIzODUxZDk4NTU2YjZkNTQyYiIsImV4cCI6MTQ1OTQzMjk0MSwibmJmIjoxNDU5NDMxMTQxfQ.JgPGxt0Ok5baKx0YMXlO6D9kUYrCWM-Kma9b9iMW8tg"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/DeleteIncomingInvoiceresponse"
+                    },
+                    {
+                      "example": {
+                        "Data": {
+                          "InvoiceRecordId": 1
+                        },
+                        "Response": {
+                          "Value": "Deleted"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Data": {
+                    "InvoiceRecordId": 1
+                  },
+                  "Response": {
+                    "Value": "Deleted"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/400Response"
+                    },
+                    {
+                      "example": {
+                        "Response": {
+                          "Value": "400 Bad Request"
+                        },
+                        "Messages": [
+                          {
+                            "Severity": "Error",
+                            "Message": "API5058 - Data : The mandatory field {fieldName} was missing in the request body."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Response": {
+                    "Value": "400 Bad Request"
+                  },
+                  "Messages": [
+                    {
+                      "Severity": "Error",
+                      "Message": "API5058 - Data : The mandatory field {fieldName} was missing in the request body."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/404Response"
+                    },
+                    {
+                      "example": {
+                        "Response": {
+                          "Value": "404 Not Found"
+                        },
+                        "Messages": [
+                          {
+                            "Severity": "Warning",
+                            "Message": "API5068 - Data : No records found."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Response": {
+                    "Value": "404 Not Found"
+                  },
+                  "Messages": [
+                    {
+                      "Severity": "Warning",
+                      "Message": "API5068 - Data : No records found."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/405Response"
+                    },
+                    {
+                      "example": {
+                        "Response": {
+                          "Value": "405 Method Not Allowed"
+                        },
+                        "Messages": [
+                          {
+                            "Severity": "Error",
+                            "Message": "API5077 - API : That method is not supported, please check the ITAS API documentation."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "Response": {
+                    "Value": "405 Method Not Allowed"
+                  },
+                  "Messages": [
+                    {
+                      "Severity": "Error",
+                      "Message": "API5077 - API : That method is not supported, please check the ITAS API documentation."
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/InvoiceLeg": {
+      "get": {
+        "tags": [
+          "Data Object Definitions"
+        ],
+        "summary": "InvoiceRecordLeg",
+        "description": "A multipurpose object which can be used by several endpoints and with multiple source tables depending on context. The object described below is generic.<br /><br />\n<strong>Invoice Record Leg object for Create.</strong>\n\n|Property|Description|Type|Max Length|Notes|Constraint|\n|--------|-----------|----|----------|-----|----------|\n|Quantity|Quantity|`number`|||Required|\n|WeightCode|Weight Code|`string`|4||Required|\n|Value|Value|`number`|||Required|\n|Price|Price|`number`|||Required|\n|VatRatePercentage|Vat Rate Percentage|`number`|||Required|\n|InvoiceRecordLegDescription|Invoice Leg Description|`string`|255|||\n|VatRateCode|Vat Rate Code|`string`|2|||\n|RateTypeCode|Rate Type Code|`string`|1||`A`=Amount, `R`=Rate, `S`=SplitAmount, `W`=WeightRate, `%`=Percent, `Q`=DailyPercent, `C`=PerContainer, `L`=PerRailcar, ` `=None|\n|PriceTypeCode|Price Type Code|`string`|1|||\n|PaymentModeCode|Payment Mode Code|`string`|1|||\n|PaymentId|Payment Id|`string`|255|||\n|BuyerOrderIdentifier|Buyer Order Identifier|`string`|50|||\n|StartPeriod|Start Period|`datetime`||||\n|EndPeriod|End Period|`datetime`||||\n|FreeFormatNote|Free Format Note|`string`|255|||\n\n<br /><br />\n<strong>Invoice Record Leg object for Update and Read.</strong>\n\n|Property|Description|Type|Max Length|Notes|Constraint|\n|--------|-----------|----|----------|-----|----------|\n|InvoiceRecordId|Invoice Record Id|`number`|||Required|\n|InvoiceRecordLegId|Invoice Record Leg Id|`number`||||\n|Quantity|Quantity|`number`|||Required|\n|WeightCode|Weight Code|`string`|4||Required|\n|Value|Value|`number`|||Required|\n|Price|Price|`number`|||Required|\n|VatRatePercentage|Vat Rate Percentage|`number`|||Required|\n|InvoiceRecordLegDescription|Invoice Leg Description|`string`|255|||\n|VatRateCode|Vat Rate Code|`string`|2|||\n|RateTypeCode|Rate Type Code|`string`|1||`A`=Amount, `R`=Rate, `S`=SplitAmount, `W`=WeightRate, `%`=Percent, `Q`=DailyPercent, `C`=PerContainer, `L`=PerRailcar, ` `=None|\n|PriceTypeCode|Price Type Code|`string`|1|||\n|PaymentModeCode|Payment Mode Code|`string`|1|||\n|PaymentId|Payment Id|`string`|255|||\n|BuyerOrderIdentifier|Buyer Order Identifier|`string`|50|||\n|StartPeriod|Start Period|`datetime`||||\n|EndPeriod|End Period|`datetime`||||\n|FreeFormatNote|Free Format Note|`string`|255|||",
+        "operationId": "InvoiceRecordLeg",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "200SuccessResponse": {
+        "title": "200SuccessResponse",
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "string",
+            "example": "Success"
+          }
+        }
+      },
+      "200UpdateResponse": {
+        "title": "200UpdateResponse",
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "string",
+            "example": "Updated"
+          }
+        }
+      },
+      "200DeletedResponse": {
+        "title": "200DeletedResponse",
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "string",
+            "example": "Deleted"
+          }
+        }
+      },
+      "200AuthoriseResponse": {
+        "title": "200AuthoriseResponse",
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "string",
+            "example": "Authorised"
+          }
+        }
+      },
+      "201CreateResponse": {
+        "title": "201CreateResponse",
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "string",
+            "example": "Created"
+          }
+        }
+      },
+      "201CreateMessages": {
+        "title": "201CreateMessages",
+        "type": "object",
+        "properties": {
+          "Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/201ErrorMessageDetail"
+            },
+            "description": ""
+          }
+        }
+      },
+      "201ErrorMessageDetail": {
+        "title": "201ErrorMessageDetail",
+        "type": "object",
+        "properties": {
+          "Severity": {
+            "type": "string",
+            "example": "Warning"
+          },
+          "Message": {
+            "type": "string",
+            "example": "API5084 - API : {fieldName} has a {fieldName} of {value}."
+          }
+        }
+      },
+      "201CreateBllMessages": {
+        "title": "201CreateBllMessages",
+        "type": "object",
+        "properties": {
+          "Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/201ErrorBllMessageDetail"
+            },
+            "description": ""
+          }
+        }
+      },
+      "201ErrorBllMessageDetail": {
+        "title": "201ErrorBllMessageDetail",
+        "type": "object",
+        "properties": {
+          "Severity": {
+            "type": "string",
+            "example": "Warning"
+          },
+          "Message": {
+            "type": "string",
+            "example": "API5084 - API : {fieldName} has a {fieldName} of {value}."
+          }
+        }
+      },
+      "400Response": {
+        "title": "400Response",
+        "type": "object",
+        "properties": {
+          "Response": {
+            "$ref": "#/components/schemas/200SuccessResponse"
+          },
+          "Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/400ErrorMessageDetail"
+            },
+            "description": ""
+          }
+        }
+      },
+      "400ErrorMessageDetail": {
+        "title": "400ErrorMessageDetail",
+        "type": "object",
+        "properties": {
+          "Severity": {
+            "type": "string",
+            "example": "Error"
+          },
+          "Message": {
+            "type": "string",
+            "example": "API5058 - Data : The mandatory field {fieldName} was missing in the request body."
+          }
+        }
+      },
+      "400BadPropertyResponse": {
+        "title": "400BadPropertyResponse",
+        "type": "object",
+        "properties": {
+          "Response": {
+            "$ref": "#/components/schemas/200SuccessResponse"
+          },
+          "Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/400BadPropertyErrorMessageDetail"
+            },
+            "description": ""
+          }
+        }
+      },
+      "400BadPropertyErrorMessageDetail": {
+        "title": "400BadPropertyErrorMessageDetail",
+        "type": "object",
+        "properties": {
+          "Severity": {
+            "type": "string",
+            "example": "Error"
+          },
+          "Message": {
+            "type": "string",
+            "example": "API5074 - API : The value sent in the querystring variable {Property} is not allowed."
+          }
+        }
+      },
+      "400BadReadResponse": {
+        "title": "400BadReadResponse",
+        "type": "object",
+        "properties": {
+          "Response": {
+            "$ref": "#/components/schemas/200SuccessResponse"
+          },
+          "Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/400BadReadErrorMessageDetail"
+            },
+            "description": ""
+          }
+        }
+      },
+      "400BadReadErrorMessageDetail": {
+        "title": "400BadReadErrorMessageDetail",
+        "type": "object",
+        "properties": {
+          "Severity": {
+            "type": "string",
+            "example": "Error"
+          },
+          "Message": {
+            "type": "string",
+            "example": "API5075 - API : The value sent in the querystring is not allowed."
+          }
+        }
+      },
+      "400WarningMessageDetail": {
+        "title": "400WarningMessageDetail",
+        "type": "object",
+        "properties": {
+          "Severity": {
+            "type": "string",
+            "example": "Warning"
+          },
+          "Message": {
+            "type": "string",
+            "example": "API50xx - Data : The field {fieldName} was not found."
+          }
+        }
+      },
+      "400InfoMessageDetail": {
+        "title": "400InfoMessageDetail",
+        "type": "object",
+        "properties": {
+          "Severity": {
+            "type": "string",
+            "example": "Information"
+          },
+          "Message": {
+            "type": "string",
+            "example": "API50xx - Data : Now create xyz."
+          }
+        }
+      },
+      "404Response": {
+        "title": "404Response",
+        "type": "object",
+        "properties": {
+          "Response": {
+            "$ref": "#/components/schemas/200SuccessResponse"
+          },
+          "Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/404ErrorMessageDetailMessage"
+            },
+            "description": ""
+          }
+        }
+      },
+      "404ErrorMessageDetailMessage": {
+        "title": "404ErrorMessageDetailMessage",
+        "type": "object",
+        "properties": {
+          "Severity": {
+            "type": "string",
+            "example": "Warning"
+          },
+          "Message": {
+            "type": "string",
+            "example": "API5068 - Data : No records found."
+          }
+        }
+      },
+      "405Response": {
+        "title": "405Response",
+        "type": "object",
+        "properties": {
+          "Response": {
+            "$ref": "#/components/schemas/200SuccessResponse"
+          },
+          "Messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/405MethodNotAllowedMessage"
+            },
+            "description": ""
+          }
+        }
+      },
+      "405MethodNotAllowedMessage": {
+        "title": "405MethodNotAllowedMessage",
+        "type": "object",
+        "properties": {
+          "Severity": {
+            "type": "string",
+            "example": "Error"
+          },
+          "Message": {
+            "type": "string",
+            "example": "API5077 - API : That method is not supported, please check the ITAS API documentation."
+          }
+        }
+      },
+      "accessToken": {
+        "title": "accessToken",
+        "type": "object",
+        "properties": {
+          "Authorization": {
+            "type": "string",
+            "description": "Kma9b9iMW8tg",
+            "example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1bmlxdWVfbmFtZSI6ImRlZXBhayIsInN1YiI6ImRlZXBhayIsInJvbGUiOlsiNzk5YjhhNDEtYWI0ZS00MTBhLWI5MTktYzU3ZWFlMmFlMDI5IiwiZGVlcGFrIiwiQVNQLk5FVCBJZGVudGl0eSIsIjViNDE4ODE2LTI3ZjQtNGRlOC1iNmMyLTJlZTcxNjI3ZmJmYyIsIkFkbWluIiwiU3VwZXJBZG1pbiJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMjciLCJhdWQiOiI4MjkzNjk0MjJmNzA0NTIzODUxZDk4NTU2YjZkNTQyYiIsImV4cCI6MTQ1OTQzMjk0MSwibmJmIjoxNDU5NDMxMTQxfQ.JgPGxt0Ok5baKx0YMXlO6D9kUYrCWM"
+          }
+        }
+      },
+      "InvoiceCreateBody": {
+        "title": "InvoiceCreateBody",
+        "required": [
+          "AccountCode",
+          "ClientReference",
+          "CurrencyCode",
+          "DocumentDate",
+          "ValueDate",
+          "Name",
+          "VatRegistrationNo",
+          "EInvoiceId",
+          "TotalInvoiceAmount",
+          "TotalInvoiceLinesExVatAmount",
+          "TotalVatAmount",
+          "InvoicePayableAmount",
+          "IBAN",
+          "BIC",
+          "InvoiceRecordLegs"
+        ],
+        "type": "object",
+        "properties": {
+          "AccountCode": {
+            "type": "string",
+            "example": "ABCDEFG.P"
+          },
+          "ClientReference": {
+            "type": "string",
+            "example": "'5879101647'"
+          },
+          "CurrencyCode": {
+            "type": "string",
+            "example": "EUR"
+          },
+          "DocumentDate": {
+            "type": "string",
+            "example": "2025-07-14T00:00:00Z"
+          },
+          "ValueDate": {
+            "type": "string",
+            "example": "2025-08-14T00:00:00Z"
+          },
+          "Name": {
+            "type": "string",
+            "example": "Coolblue N.V."
+          },
+          "VatRegistrationNo": {
+            "type": "string",
+            "example": "NL823619357Z08"
+          },
+          "EInvoiceId": {
+            "type": "string",
+            "example": "0478493179"
+          },
+          "TotalInvoiceAmount": {
+            "type": "number",
+            "example": 729.17
+          },
+          "TotalInvoiceLinesExVatAmount": {
+            "type": "number",
+            "example": 745.91
+          },
+          "TotalVatAmount": {
+            "type": "number",
+            "example": 16.74
+          },
+          "InvoicePayableAmount": {
+            "type": "number",
+            "example": 719.27
+          },
+          "IBAN": {
+            "type": "string",
+            "example": "UKBMGB22"
+          },
+          "BIC": {
+            "type": "string",
+            "example": "HBUKGB4B"
+          },
+          "OrderNumber": {
+            "type": "string",
+            "example": "Order 1"
+          },
+          "TaxScheme": {
+            "type": "string",
+            "example": "VAT"
+          },
+          "SchemeId": {
+            "type": "string",
+            "example": "9944"
+          },
+          "DocumentType": {
+            "type": "string",
+            "example": "123"
+          },
+          "Notes": {
+            "type": "string",
+            "example": "Received ready for processing"
+          },
+          "DocmanDocumentId": {
+            "type": "number",
+            "example": 10101
+          },
+          "InvoiceRecordLegs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceLeg1Create"
+            },
+            "description": ""
+          }
+        }
+      },
+      "InvoiceIdResponse": {
+        "title": "InvoiceIdResponse",
+        "type": "object",
+        "properties": {
+          "InvoiceRecordId": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
+      "InvoiceLeg1Create": {
+        "title": "InvoiceLeg1Create",
+        "required": [
+          "Quantity",
+          "WeightCode",
+          "Value",
+          "Price",
+          "VatRatePercentage"
+        ],
+        "type": "object",
+        "properties": {
+          "Quantity": {
+            "type": "number",
+            "example": 440
+          },
+          "WeightCode": {
+            "type": "string",
+            "example": "MT"
+          },
+          "Value": {
+            "type": "number",
+            "example": 22000
+          },
+          "Price": {
+            "type": "number",
+            "example": 50
+          },
+          "VatRatePercentage": {
+            "type": "number",
+            "example": 21
+          },
+          "InvoiceRecordLegDescription": {
+            "type": "string",
+            "example": "SGR 1234"
+          },
+          "VatRateCode": {
+            "type": "string",
+            "example": "E"
+          },
+          "RateTypeCode": {
+            "type": "string",
+            "example": "A"
+          },
+          "PriceTypeCode": {
+            "type": "string",
+            "example": "PKG"
+          },
+          "PaymentModeCode": {
+            "type": "string",
+            "example": "I"
+          },
+          "PaymentId": {
+            "type": "string",
+            "example": "Payment 1"
+          },
+          "BuyerOrderIdentifier": {
+            "type": "string",
+            "example": "XX01"
+          },
+          "StartPeriod": {
+            "type": "string",
+            "example": "2025-07-14T00:00:00Z"
+          },
+          "EndPeriod": {
+            "type": "string",
+            "example": "2025-07-28T00:00:00Z"
+          },
+          "FreeFormatNote": {
+            "type": "string",
+            "example": "Notes section"
+          }
+        }
+      },
+      "InvoiceLeg2Create": {
+        "title": "InvoiceLeg2Create",
+        "required": [
+          "Quantity",
+          "WeightCode",
+          "Value",
+          "Price",
+          "VatRatePercentage"
+        ],
+        "type": "object",
+        "properties": {
+          "Quantity": {
+            "type": "number",
+            "example": 200
+          },
+          "WeightCode": {
+            "type": "string",
+            "example": "MT"
+          },
+          "Value": {
+            "type": "number",
+            "example": 12000
+          },
+          "Price": {
+            "type": "number",
+            "example": 60
+          },
+          "VatRatePercentage": {
+            "type": "number",
+            "example": 21
+          },
+          "InvoiceRecordLegDescription": {
+            "type": "string",
+            "example": "MLS 8523"
+          },
+          "VatRateCode": {
+            "type": "string",
+            "example": "E"
+          },
+          "RateTypeCode": {
+            "type": "string",
+            "example": "A"
+          },
+          "PriceTypeCode": {
+            "type": "string",
+            "example": "PKG"
+          },
+          "PaymentModeCode": {
+            "type": "string",
+            "example": "I"
+          },
+          "PaymentId": {
+            "type": "string",
+            "example": "Payment 1"
+          },
+          "BuyerOrderIdentifier": {
+            "type": "string",
+            "example": "XX01"
+          },
+          "StartPeriod": {
+            "type": "string",
+            "example": "2025-07-14T00:00:00Z"
+          },
+          "EndPeriod": {
+            "type": "string",
+            "example": "2025-07-28T00:00:00Z"
+          },
+          "FreeFormatNote": {
+            "type": "string",
+            "example": "Notes section"
+          }
+        }
+      },
+      "InvoiceReadBody": {
+        "title": "InvoiceReadBody",
+        "required": [
+          "Name",
+          "InvoiceRecordLegs"
+        ],
+        "type": "object",
+        "properties": {
+          "InvoiceRecordId": {
+            "type": "number",
+            "example": 1
+          },
+          "AccountCode": {
+            "type": "string",
+            "example": "ABCDEFG.P"
+          },
+          "ClientReference": {
+            "type": "string",
+            "example": "'5879101647'"
+          },
+          "CurrencyCode": {
+            "type": "string",
+            "example": "EUR"
+          },
+          "DocumentDate": {
+            "type": "string",
+            "example": "2025-07-14T00:00:00Z"
+          },
+          "ValueDate": {
+            "type": "string",
+            "example": "2025-08-14T00:00:00Z"
+          },
+          "Name": {
+            "type": "string",
+            "example": "Coolblue N.V."
+          },
+          "VatRegistrationNo": {
+            "type": "string",
+            "example": "NL823619357Z08"
+          },
+          "EInvoiceId": {
+            "type": "string",
+            "example": "0478493179"
+          },
+          "TotalInvoiceAmount": {
+            "type": "number",
+            "example": 729.17
+          },
+          "TotalInvoiceLinesExVatAmount": {
+            "type": "number",
+            "example": 745.91
+          },
+          "TotalVatAmount": {
+            "type": "number",
+            "example": 16.74
+          },
+          "InvoicePayableAmount": {
+            "type": "number",
+            "example": 719.27
+          },
+          "IBAN": {
+            "type": "string",
+            "example": "UKBMGB22"
+          },
+          "BIC": {
+            "type": "string",
+            "example": "HBUKGB4B"
+          },
+          "OrderNumber": {
+            "type": "string",
+            "example": "Order 1"
+          },
+          "IsProcessed": {
+            "type": "boolean",
+            "example": false
+          },
+          "TaxScheme": {
+            "type": "string",
+            "example": "VAT"
+          },
+          "SchemeId": {
+            "type": "string",
+            "example": "9944"
+          },
+          "DocumentType": {
+            "type": "string",
+            "example": "123"
+          },
+          "Notes": {
+            "type": "string",
+            "example": "Received ready for processing"
+          },
+          "DocmanDocumentId": {
+            "type": "number",
+            "example": 10101
+          },
+          "InvoiceRecordLegs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceReadLeg1"
+            },
+            "description": ""
+          }
+        }
+      },
+      "InvoiceUpdateBody": {
+        "title": "InvoiceUpdateBody",
+        "required": [
+          "InvoiceRecordId",
+          "AccountCode",
+          "ClientReference",
+          "CurrencyCode",
+          "DocumentDate",
+          "ValueDate",
+          "Name",
+          "VatRegistrationNo",
+          "EInvoiceId",
+          "TotalInvoiceAmount",
+          "TotalInvoiceLinesExVatAmount",
+          "TotalVatAmount",
+          "InvoicePayableAmount",
+          "IBAN",
+          "BIC",
+          "InvoiceRecordLegs"
+        ],
+        "type": "object",
+        "properties": {
+          "InvoiceRecordId": {
+            "type": "number",
+            "example": 1
+          },
+          "AccountCode": {
+            "type": "string",
+            "example": "ABCDEFG.P"
+          },
+          "ClientReference": {
+            "type": "string",
+            "example": "'5879101647'"
+          },
+          "CurrencyCode": {
+            "type": "string",
+            "example": "EUR"
+          },
+          "DocumentDate": {
+            "type": "string",
+            "example": "2025-07-14T00:00:00Z"
+          },
+          "ValueDate": {
+            "type": "string",
+            "example": "2025-08-14T00:00:00Z"
+          },
+          "Name": {
+            "type": "string",
+            "example": "Coolblue N.V."
+          },
+          "VatRegistrationNo": {
+            "type": "string",
+            "example": "NL823619357Z08"
+          },
+          "EInvoiceId": {
+            "type": "string",
+            "example": "0478493179"
+          },
+          "TotalInvoiceAmount": {
+            "type": "number",
+            "example": 729.17
+          },
+          "TotalInvoiceLinesExVatAmount": {
+            "type": "number",
+            "example": 745.91
+          },
+          "TotalVatAmount": {
+            "type": "number",
+            "example": 16.74
+          },
+          "InvoicePayableAmount": {
+            "type": "number",
+            "example": 719.27
+          },
+          "IBAN": {
+            "type": "string",
+            "example": "UKBMGB22"
+          },
+          "BIC": {
+            "type": "string",
+            "example": "HBUKGB4B"
+          },
+          "OrderNumber": {
+            "type": "string",
+            "example": "'Order 1"
+          },
+          "TaxScheme": {
+            "type": "string",
+            "example": "VAT"
+          },
+          "SchemeId": {
+            "type": "string",
+            "example": "9944"
+          },
+          "DocumentType": {
+            "type": "string",
+            "example": "123"
+          },
+          "Notes": {
+            "type": "string",
+            "example": "Process with the following note"
+          },
+          "DocmanDocumentId": {
+            "type": "number",
+            "example": 10101
+          },
+          "InvoiceRecordLegs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceUpdateLeg1Create"
+            },
+            "description": ""
+          }
+        }
+      },
+      "InvoiceReadLeg1": {
+        "title": "InvoiceReadLeg1",
+        "type": "object",
+        "properties": {
+          "InvoiceRecordId": {
+            "type": "number",
+            "example": 1
+          },
+          "InvoiceRecordLegId": {
+            "type": "number",
+            "example": 1
+          },
+          "Quantity": {
+            "type": "number",
+            "example": 440
+          },
+          "WeightCode": {
+            "type": "string",
+            "example": "MT"
+          },
+          "Value": {
+            "type": "number",
+            "example": 22000
+          },
+          "Price": {
+            "type": "number",
+            "example": 50
+          },
+          "VatRatePercentage": {
+            "type": "number",
+            "example": 21
+          },
+          "InvoiceRecordLegDescription": {
+            "type": "string",
+            "example": "SGR 1234"
+          },
+          "VatRateCode": {
+            "type": "string",
+            "example": "E"
+          },
+          "RateTypeCode": {
+            "type": "string",
+            "example": "A"
+          },
+          "PriceTypeCode": {
+            "type": "string",
+            "example": "PKG"
+          },
+          "PaymentModeCode": {
+            "type": "string",
+            "example": "I"
+          },
+          "PaymentId": {
+            "type": "string",
+            "example": "Payment 1"
+          },
+          "BuyerOrderIdentifier": {
+            "type": "string",
+            "example": "XX01"
+          },
+          "StartPeriod": {
+            "type": "string",
+            "example": "2025-07-14T00:00:00Z"
+          },
+          "EndPeriod": {
+            "type": "string",
+            "example": "2025-07-28T00:00:00Z"
+          },
+          "FreeFormatNote": {
+            "type": "string",
+            "example": "Notes section"
+          }
+        }
+      },
+      "InvoiceUpdateLeg1Create": {
+        "title": "InvoiceUpdateLeg1Create",
+        "required": [
+          "InvoiceRecordId",
+          "InvoiceRecordLegId",
+          "Quantity",
+          "WeightCode",
+          "Value",
+          "Price",
+          "VatRatePercentage"
+        ],
+        "type": "object",
+        "properties": {
+          "InvoiceRecordId": {
+            "type": "number",
+            "example": 1
+          },
+          "InvoiceRecordLegId": {
+            "type": "number",
+            "example": 1
+          },
+          "Quantity": {
+            "type": "number",
+            "example": 440
+          },
+          "WeightCode": {
+            "type": "string",
+            "example": "MT"
+          },
+          "Value": {
+            "type": "number",
+            "example": 22000
+          },
+          "Price": {
+            "type": "number",
+            "example": 50
+          },
+          "VatRatePercentage": {
+            "type": "number",
+            "example": 21
+          },
+          "InvoiceRecordLegDescription": {
+            "type": "string",
+            "example": "SGR 1234"
+          },
+          "VatRateCode": {
+            "type": "string",
+            "example": "E"
+          },
+          "RateTypeCode": {
+            "type": "string",
+            "example": "A"
+          },
+          "PriceTypeCode": {
+            "type": "string",
+            "example": "PKG"
+          },
+          "PaymentModeCode": {
+            "type": "string",
+            "example": "I"
+          },
+          "PaymentId": {
+            "type": "string",
+            "example": "Payment 1"
+          },
+          "BuyerOrderIdentifier": {
+            "type": "string",
+            "example": "XX01"
+          },
+          "StartPeriod": {
+            "type": "string",
+            "example": "2025-07-14T00:00:00Z"
+          },
+          "EndPeriod": {
+            "type": "string",
+            "example": "2025-07-28T00:00:00Z"
+          },
+          "FreeFormatNote": {
+            "type": "string",
+            "example": "Notes section"
+          }
+        }
+      },
+      "InvoiceUpdateLeg2Create": {
+        "title": "InvoiceUpdateLeg2Create",
+        "required": [
+          "InvoiceRecordId",
+          "InvoiceRecordLegId",
+          "Quantity",
+          "WeightCode",
+          "Value",
+          "Price",
+          "VatRatePercentage"
+        ],
+        "type": "object",
+        "properties": {
+          "InvoiceRecordId": {
+            "type": "number",
+            "example": 1
+          },
+          "InvoiceRecordLegId": {
+            "type": "number",
+            "example": 2
+          },
+          "Quantity": {
+            "type": "number",
+            "example": 400
+          },
+          "WeightCode": {
+            "type": "string",
+            "example": "MT"
+          },
+          "Value": {
+            "type": "number",
+            "example": 24000
+          },
+          "Price": {
+            "type": "number",
+            "example": 60
+          },
+          "VatRatePercentage": {
+            "type": "number",
+            "example": 21
+          },
+          "InvoiceRecordLegDescription": {
+            "type": "string",
+            "example": "MLS 8523"
+          },
+          "VatRateCode": {
+            "type": "string",
+            "example": "E"
+          },
+          "RateTypeCode": {
+            "type": "string",
+            "example": "A"
+          },
+          "PriceTypeCode": {
+            "type": "string",
+            "example": "PKG"
+          },
+          "PaymentModeCode": {
+            "type": "string",
+            "example": "I"
+          },
+          "PaymentId": {
+            "type": "string",
+            "example": "Payment 1"
+          },
+          "BuyerOrderIdentifier": {
+            "type": "string",
+            "example": "XX01"
+          },
+          "StartPeriod": {
+            "type": "string",
+            "example": "2025-07-14T00:00:00Z"
+          },
+          "EndPeriod": {
+            "type": "string",
+            "example": "2025-07-28T00:00:00Z"
+          },
+          "FreeFormatNote": {
+            "type": "string",
+            "example": "Notes section"
+          }
+        }
+      },
+      "Pagination": {
+        "title": "Pagination",
+        "type": "object",
+        "properties": {
+          "Total": {
+            "type": "number",
+            "description": "total number of records available",
+            "example": 547
+          },
+          "Top": {
+            "type": "number",
+            "description": "max number returned per message",
+            "example": 200
+          },
+          "Skip": {
+            "type": "number",
+            "description": "number of records skipped",
+            "example": 400
+          },
+          "Returned": {
+            "type": "number",
+            "description": "actual number returned",
+            "example": 146
+          }
+        }
+      },
+      "CreateIncomingInvoiceRecordresponse": {
+        "title": "CreateIncomingInvoiceRecordresponse",
+        "type": "object",
+        "properties": {
+          "Data": {
+            "$ref": "#/components/schemas/InvoiceIdResponse"
+          },
+          "Response": {
+            "$ref": "#/components/schemas/201CreateResponse"
+          }
+        }
+      },
+      "DeleteIncomingInvoiceresponse": {
+        "title": "DeleteIncomingInvoiceresponse",
+        "type": "object",
+        "properties": {
+          "Data": {
+            "$ref": "#/components/schemas/InvoiceIdResponse"
+          },
+          "Response": {
+            "$ref": "#/components/schemas/200DeletedResponse"
+          }
+        }
+      },
+      "ListIncomingInvoiceRecordsresponse": {
+        "title": "ListIncomingInvoiceRecordsresponse",
+        "type": "object",
+        "properties": {
+          "Data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceReadBody"
+            },
+            "description": ""
+          },
+          "Pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "Response": {
+            "$ref": "#/components/schemas/200SuccessResponse"
+          }
+        }
+      },
+      "Property": {
+        "title": "Property",
+        "enum": [
+          "AccountCode",
+          "ClientReference",
+          "DocumentDate",
+          "InvoiceRecordId",
+          "IsProcessed"
+        ],
+        "type": "string"
+      },
+      "UpdateIncomingInvoiceRecordresponse": {
+        "title": "UpdateIncomingInvoiceRecordresponse",
+        "type": "object",
+        "properties": {
+          "Data": {
+            "$ref": "#/components/schemas/InvoiceIdResponse"
+          },
+          "Response": {
+            "$ref": "#/components/schemas/200UpdateResponse"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "httpBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "httpBearer": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Invoices",
+      "description": ""
+    },
+    {
+      "name": "Data Object Definitions",
+      "description": "List of re-usable Data Objects referenced as `object` types. Not that these endpoints are not accessable and only here for reference purposes."
+    }
+  ]
+}
